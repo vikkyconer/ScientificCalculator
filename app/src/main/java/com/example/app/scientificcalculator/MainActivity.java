@@ -365,6 +365,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case '+':
                 result = (num1 + result);
                 break;
+            case '*':
+                result = ( num1 * result);
+                break;
         }
         return result;
     }
