@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView display;
+    TextView display, previousDis;
 
     Button factorial, power, root, pie, cancel;
     Button sin, xSquare, xCube, e, back;
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initializeViews() {
         display = (TextView) findViewById(R.id.display);
+        previousDis = (TextView) findViewById(R.id.previous_operation);
 
         factorial = (Button) findViewById(R.id.factorial);
         power = (Button) findViewById(R.id.power);
@@ -184,11 +185,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 result = result * result * result;
                 display.setText(String.valueOf(result));
                 break;
-            case R.id.e: result = result * 2.14;
+            case R.id.e:
+                result = result * 2.14;
                 display.setText(String.valueOf(result));
                 break;
             case R.id.back:
-                result = (int)(result / 10);
+                result = (int) (result / 10);
                 display.setText(String.valueOf(result));
                 break;
 
@@ -217,7 +219,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.divide:
                 operator = '/';
-                num1 = result;
+                if (result != 0)
+                    num1 = result;
                 result = 0.0;
                 break;
 
@@ -246,7 +249,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.mul:
                 operator = '*';
-                num1 = result;
+                if (result != 0)
+                    num1 = result;
                 result = 0.0;
                 break;
 
@@ -275,7 +279,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.minus:
                 operator = '-';
-                num1 = result;
+                if (result != 0)
+                    num1 = result;
                 result = 0.0;
                 break;
 
@@ -300,12 +305,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.equal:
                 result = findResult(num1, result, operator);
+//                String operation = num1 + operator + result + "=";
+//                previousDis.setText(operation);
                 display.setText(String.valueOf(result));
+                num1 = result;
                 result = 0;
                 break;
             case R.id.plus:
                 operator = '+';
-                num1 = result;
+                if (result != 0)
+                    num1 = result;
                 result = 0.0;
                 break;
         }
@@ -366,7 +375,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 result = (num1 + result);
                 break;
             case '*':
-                result = ( num1 * result);
+                result = (num1 * result);
                 break;
         }
         return result;
